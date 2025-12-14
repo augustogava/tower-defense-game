@@ -1,0 +1,9 @@
+.git
+.gitignore
+*.md
+LICENSE
+SECURITY.md
+getD.php
+.cursor
+*.ini
+
