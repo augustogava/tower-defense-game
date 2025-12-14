@@ -5,5 +5,4 @@ LICENSE
 SECURITY.md
 getD.php
 .cursor
-*.ini
-
+**/*.ini
