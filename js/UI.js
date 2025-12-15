@@ -119,6 +119,10 @@ UI.prototype = {
 			 context.drawImage( life.img, 865 , 4 , life.img.width * 0.8, life.img.height * 0.8 );
 			 context.drawImage( coins.img, 270 , 8 , coins.img.width * 0.8, coins.img.height * 0.8 );
 		}
+		
+		context.font = 'bold 14px monospace';
+		context.fillStyle = fps >= 50 ? '#00FF00' : fps >= 30 ? '#FFFF00' : '#FF0000';
+		context.fillText('FPS: ' + fps, 10, 790);
 
 	},
 	
