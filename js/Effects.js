@@ -384,9 +384,10 @@ Effects.prototype = {
 			// If the current particle is alive then update it
 			if( currentParticle.timeToLive > 0 ){
 	
-				// Calculate the new direction based on gravity
-				currentParticle.direction = Vector.add( currentParticle.direction, this.gravity );
-				currentParticle.position = Vector.add( currentParticle.position, currentParticle.direction );
+				var scaledGravity = Vector.create(this.gravity.x * delta, this.gravity.y * delta);
+			currentParticle.direction = Vector.add( currentParticle.direction, scaledGravity );
+			var scaledDirection = Vector.create(currentParticle.direction.x * delta, currentParticle.direction.y * delta);
+			currentParticle.position = Vector.add( currentParticle.position, scaledDirection );
 //				currentParticle.position = Vector.add( currentParticle.position, Vector.create(-5,-5) );
 				currentParticle.timeToLive -= delta;
 	
@@ -419,6 +420,10 @@ Effects.prototype = {
 		this.active = false;
 		this.elapsedTime = 0;
 		this.emitCounter = 0;
+	},
+	
+	shouldRemove: function(){
+		return this.active === false && this.particleCount === 0 && this.duration !== -1;
 	},
 	
 	removeF: function(){

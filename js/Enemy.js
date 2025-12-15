@@ -209,12 +209,15 @@ Enemy.prototype = {
 		}
 	},
 	draw:  function( ){
-		//drawHP
-		//drawEnemy
 		var imagem = loader.findImage( "ene"+this.enemyType.type );
 		
-		var xO = ( this.enemyType.widthImg ) / 2;
-		var yO = ( this.enemyType.heightImg) / 2;
+		var drawW = this.enemyType.widthImg;
+		var drawH = this.enemyType.heightImg;
+		var spriteW = this.enemyType.spriteWidth || drawW;
+		var spriteH = this.enemyType.spriteHeight || drawH;
+		
+		var xO = drawW / 2;
+		var yO = drawH / 2;
 		
 		canvasW = canvas.getCanvas();
 		context = canvasW.getContext("2d");
@@ -226,9 +229,7 @@ Enemy.prototype = {
 		context.translate( this.x , this.y );
 		this.drawLife( context )
 		context.rotate( mathI.convertToRadians( this.r ));
-		//context.drawImage( imagem.img, -xO, -yO, ( 50 ), ( 35 ) );
-		//console.info(imagem)
-		context.drawImage( imagem.img , frame.x, frame.y, this.enemyType.widthImg, this.enemyType.heightImg, -xO, -yO, this.enemyType.widthImg, this.enemyType.heightImg);
+		context.drawImage( imagem.img, frame.x, frame.y, spriteW, spriteH, -xO, -yO, drawW, drawH);
 		
 		context.restore();
 	},

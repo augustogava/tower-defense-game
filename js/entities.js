@@ -36,8 +36,11 @@ Entities.prototype.add = function( obj ) {
 }
 
 Entities.prototype.update = function() {
-	for(var i=0; i< this.obj.length; i++){
+	for(var i = this.obj.length - 1; i >= 0; i--){
 		this.obj[i].update( timer.getSeconds() );
+		if(this.obj[i].shouldRemove && this.obj[i].shouldRemove()){
+			this.obj.splice(i, 1);
+		}
 	}
 };
 
