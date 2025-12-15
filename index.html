@@ -6,28 +6,46 @@
 		<meta name="keywords" content="Tower defense, game, online for free, free, games" />
 		<meta name="author" content="Augusto">
 		<meta name="robots" content="index, follow" />
-		<meta  content="--allow-file-access-from-files" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+		<meta content="--allow-file-access-from-files" />
 		<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+		<script type="text/javascript" src="js/ResponsiveConfig.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<style>
-			body { margin: 0px; padding: 0px; }
-			#myCanvas{
-				left: 50%;
-				position: absolute;
+			body { 
+				margin: 0px; 
+				padding: 0px; 
+				overflow: hidden;
+				background: #000;
 			}
 			
-			#effects{
-				left: 50%;
-				position: absolute;
+			* {
+				-webkit-tap-highlight-color: transparent;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				user-select: none;
 			}
-			#ui{
-				position: absolute;
-				background: #1A1A1A url('images/ui.png');
-				margin-top: 600px;
-				left: 50%;
-				width: 1020px;
-				height: 200px;
-			}
+			
+		#myCanvas{
+			position: absolute;
+			top: 0;
+			z-index: 1;
+		}
+		
+		#effects{
+			position: absolute;
+			top: 0;
+			z-index: 2;
+		}
+	#ui{
+		position: absolute;
+		background: #1A1A1A url('images/ui.png');
+		width: 1020px;
+		height: 200px;
+		top: 0;
+		z-index: 100;
+		display: none;
+	}
 			
 			#towers{
 				margin-left: 20px;
@@ -116,16 +134,17 @@
 				z-index: 100000;
 			}
 			
-			#intro{
-				position: absolute;
-				left: 50%;
-				width: 1020px;
-				height: 800px;
-				opacity:0.9;
-				filter:alpha(opacity=90);
-				background-color: #000;
-				z-index: 1;
-			}
+	#intro{
+		position: absolute;
+		width: 1020px;
+		height: 800px;
+		opacity:0.9;
+		filter:alpha(opacity=90);
+		background-color: #000;
+		z-index: 500;
+		top: 0;
+		cursor: pointer;
+	}
 			
 			.text{
 				position: absolute;
@@ -188,9 +207,9 @@
 				display: none;
 			}
 			
-			#loading {
-				position: absolute;
-				z-index:350;
+		#loading {
+			position: absolute;
+			z-index:600;
 				
 				width: 379px;
 				height: 108px;
@@ -208,14 +227,14 @@
 				width: 5px;
 			}
 			
-			#upgradeBox {
-				position: absolute;
-				z-index:350;
-				display:none;
-				width: 85px;
-				height: 150px;
-				background: url('images/upgrade_box.png');
-			}
+		#upgradeBox {
+			position: absolute;
+			z-index:350;
+			display:none;
+			width: 85px;
+			height: 150px;
+			background: url('images/upgrade_box.png');
+		}
 			
 			#boxAttack {
 				float:left;
@@ -310,17 +329,17 @@
 				margin-top: 7px;
 			}
 			
-			#endgame{
-				position: absolute;
-				left: 50%;
-				width: 1020px;
-				height: 800px;
-				opacity:0.9;
-				filter:alpha(opacity=90);
-				background-color: #000;
-				z-index: 1;
-				display:none;
-			}
+	#endgame{
+		position: absolute;
+		width: 1020px;
+		height: 800px;
+		opacity:0.9;
+		filter:alpha(opacity=90);
+		background-color: #000;
+		z-index: 600;
+		display:none;
+		top: 0;
+	}
 			
 			#endgame #score{
 				width: 400px;
@@ -386,18 +405,18 @@
 				border: 1px solid #616161;
 			}
 			
-			#sorry{
-				position: absolute;
-				left: 50%;
-				width: 1020px;
-				height: 800px;
-				opacity:0.9;
-				filter:alpha(opacity=90);
-				background-color: #000;
-				z-index: 1123121;
-				color: white;
-				display:none;
-			}
+		#sorry{
+			position: absolute;
+			width: 1020px;
+			height: 800px;
+			opacity:0.9;
+			filter:alpha(opacity=90);
+			background-color: #000;
+			z-index: 1123121;
+			color: white;
+			display:none;
+			top: 0;
+		}
 			#sorry #textSorry {
 				font-weight: bold;
 				font-family: Arial,Helvetica,sans-serif;
@@ -406,18 +425,18 @@
 				margin-top: 350px;
 			}
 
-			#about{
-				position: absolute;
-				left: 50%;
-				width: 1020px;
-				height: 800px;
-				opacity:0.8;
-				filter:alpha(opacity=80);
-				background-color: #000;
-				z-index: 11231221;
-				color: white;
-				display:none;
-			}
+		#about{
+			position: absolute;
+			width: 1020px;
+			height: 800px;
+			opacity:0.8;
+			filter:alpha(opacity=80);
+			background-color: #000;
+			z-index: 11231221;
+			color: white;
+			display:none;
+			top: 0;
+		}
 			#about #textabout {
 				font-weight: bold;
 				font-family: Arial,Helvetica,sans-serif;
@@ -430,21 +449,60 @@
 
 			a {
 				color: white;
-				//text-decoration: none;
+				/* //text-decoration: none; */
 			}
 
-			a:hover {
-				color: white;
-				//text-decoration: none;
+		a:hover {
+			color: white;
+			/* //text-decoration: none; */
+		}
+		
+		#orientationWarning {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			background: #000;
+			z-index: 999999;
+			color: white;
+			text-align: center;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			font-family: Arial, sans-serif;
+		}
+		
+		#orientationWarning h2 {
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
+		
+		#orientationWarning p {
+			font-size: 16px;
+			opacity: 0.8;
+		}
+		
+		@media (max-width: 768px) and (orientation: portrait) {
+			#orientationWarning {
+				display: flex !important;
 			}
+		}
 
-		</style>
+	</style>
 	</head>
 	
 	<body oncontextmenu="return false;">
+		
+		<div id="orientationWarning">
+			<h2>⚠️ Por favor, gire seu dispositivo</h2>
+			<p>Este jogo funciona melhor no modo paisagem (horizontal)</p>
+			<p style="font-size: 48px; margin-top: 30px;">📱 ↻</p>
+		</div>
 		 
 		<canvas id="myCanvas" width="1020" height="800" style="border:0px"> your browser does not support the canvas tag </canvas>
-		<canvas id="effects" width="1020" height="800" style="border:0px: z-index:350;"> your browser does not support the canvas tag </canvas>
+		<canvas id="effects" width="1020" height="800" style="border:0px;"> your browser does not support the canvas tag </canvas>
 		
 		<div id="textosMain" class="textT">
 			

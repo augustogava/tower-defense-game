@@ -103,8 +103,8 @@ Enemy.prototype = {
 		
 	},
 	update: function(){
-		this.x += this.vx;
-		this.y += this.vy;
+		this.x += this.vx * deltaTime;
+		this.y += this.vy * deltaTime;
 
 		if( (this.x) > this.xTo && this.vx > 0){
 			this.vx = 0;

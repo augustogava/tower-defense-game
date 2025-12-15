@@ -119,6 +119,10 @@ UI.prototype = {
 			 context.drawImage( life.img, 840 , 2 , ( life.img.width ), (  life.img.height ) );
 			 context.drawImage( coins.img, 290 , 15 , ( coins.img.width ), (  coins.img.height ) );
 		}
+		
+		context.font = 'bold 14px monospace';
+		context.fillStyle = fps >= 50 ? '#00FF00' : fps >= 30 ? '#FFFF00' : '#FF0000';
+		context.fillText('FPS: ' + fps, 10, 790);
 
 	},
 	
@@ -128,6 +132,7 @@ UI.prototype = {
 		$('#endgame').hide();
 		$('#textosMain').hide();
 		$('#textosMainDesc').hide();
+		$('#ui').show();
 		
 		level.startGameMethod();
 	},

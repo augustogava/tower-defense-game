@@ -270,8 +270,12 @@ Tower.prototype = {
 			context.drawImage( imagemSell.img , 0, 0, imagemSell.img.width, imagemSell.img.height, -xO+3, -yO+65, imagemSell.img.width, imagemSell.img.height);*/
 			var that = this;
 			$("#upgradeBox").show();
-			$("#upgradeBox").css("left", ( $("#myCanvas").position().left- ( $("#myCanvas").width() / 2 )) + this.x + 50);
-			$("#upgradeBox").css("top",  this.y-80);
+			var scaledX = canvas.offsetX + (this.x * canvas.scaleRatio) + (50 * canvas.scaleRatio);
+			var scaledY = (this.y * canvas.scaleRatio) - (80 * canvas.scaleRatio);
+			$("#upgradeBox").css("left", scaledX);
+			$("#upgradeBox").css("top", scaledY);
+			$("#upgradeBox").css("transform", "scale(" + canvas.scaleRatio + ")");
+			$("#upgradeBox").css("transform-origin", "top left");
 
 			$("#imgboxAttack").attr("src", "images/up_box_" + this.towerUpgradeAttackLevel + ".png" ); 
 			$("#imgboxAttackS").attr("src", "images/up_box_" + this.towerUpgradeAttackSLevel + ".png"); 
