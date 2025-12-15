@@ -57,17 +57,15 @@ Map.prototype = {
 
     render: function( canvas ) {
 		var context = canvas.getContext("2d");
-		var imagem = loader.findImage( "piso" );
 
     	for(var i = 0; i < this.tiles.length; i++) {	
 			var back = this.tiles[i];
 
 			var imagem = loader.findImage( back.img.nome );
 			
-			if( imagem.url != ""){
+			if( imagem && imagem.url != ""){
 				context.drawImage( imagem.img, 0, 0, imagem.img.width, imagem.img.height, back.x, back.y, this._spaceWidth, this._spaceHeight);	
 			}
-//			this.drawGrid( context, back.x, back.y )
 		}
     },
 

@@ -3,12 +3,12 @@ var Player = function(){
 }
 
 Player.prototype = {
-	coins: 170,
+	coins: 150,
 	points: 0,
 	life: 0,
 	
 	init: function(){
-		this.coins = 170;
+		this.coins = 150;
 		this.points = 0;
 		this.life = level.lifeTotal;
 		console.info("entro")

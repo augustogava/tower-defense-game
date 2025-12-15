@@ -2,15 +2,22 @@ var Level = function() {
 };
 
 Level.prototype = {
-	stepEnemy: 3,
+	stepEnemy: 2,
 	enemyType: -1,
 	level: 0,
-	lifeTotal: 30,
-	intervalWaves: 4000,
+	lifeTotal: 20,
+	intervalWaves: 5000,
 	
 	startGame: false,
 	playing: false,
 	initFlag: false,
+	
+	spawnQueue: [],
+	spawnAccumulator: 0,
+	spawnInterval: 1200,
+	spawnIntervalRandom: 400,
+	spawnReady: false,
+	currentSpawnDelay: 0,
 	
 	startGameMethod: function(){
 		this.startGame = true;
@@ -36,7 +43,7 @@ Level.prototype = {
 	
 	init: function(){
 		console.info( "en" + this.enemyType)
-		player.coins += 30;
+		player.coins += 20 + (this.level * 5);
 		
 		if( EnemyType.length == (this.enemyType+1) ){
 			this.enemyType = 0;
@@ -45,11 +52,14 @@ Level.prototype = {
 		}
 		this.initFlag = false;
 
-		var qtdEne = ( (9+this.level*this.stepEnemy) > 20 )? 20 : (9+this.level*this.stepEnemy);
-		//var qtdEne = 1;
+		var qtdEne = ( (6+this.level*this.stepEnemy) > 25 )? 25 : (6+this.level*this.stepEnemy);
+		this.spawnQueue = [];
 		for(var i=0; i<qtdEne; i++){
-			setTimeout(this.addEnemy, (700*i));
+			this.spawnQueue.push(this.enemyType);
 		}
+		this.spawnAccumulator = this.spawnInterval;
+		this.spawnReady = true;
+		this.currentSpawnDelay = 0;
 		
 	},
 	
@@ -86,7 +96,36 @@ Level.prototype = {
 	},
 	
 	update: function(){
+		this.processSpawnQueue();
 		this.verifyEndGame();
+	},
+	
+	processSpawnQueue: function(){
+		if(this.spawnQueue.length > 0 && this.playing && !paused && this.spawnReady){
+			var frameMs = timer.getSeconds() * 1000;
+			if(frameMs > 100) frameMs = 0;
+			
+			this.spawnAccumulator += frameMs;
+			
+			if(this.currentSpawnDelay === 0){
+				this.currentSpawnDelay = this.spawnInterval + Math.random() * this.spawnIntervalRandom;
+			}
+			
+			if(this.spawnAccumulator >= this.currentSpawnDelay){
+				this.spawnEnemy();
+				this.spawnAccumulator = 0;
+				this.currentSpawnDelay = this.spawnInterval + Math.random() * this.spawnIntervalRandom;
+			}
+		}
+	},
+	
+	spawnEnemy: function(){
+		if(this.spawnQueue.length > 0){
+			var enemyType = this.spawnQueue.shift();
+			var enemy = new Enemy(EnemyType[enemyType]);
+			enemy.x -= 5;
+			enti.add(enemy);
+		}
 	},
 
 	verifyEndGame: function(){

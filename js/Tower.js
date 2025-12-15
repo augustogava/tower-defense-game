@@ -61,8 +61,8 @@ Tower.prototype = {
 		
 		this.xPath =  pos.x;
 		this.yPath =  pos.y;
-		this.x = pos.x*tileWidth + ( this.towerType.widthImg / 2);
-		this.y = pos.y*tileHeight + ( this.towerType.heightImg / 2);
+		this.x = pos.x*tileWidth + ( tileWidth / 2);
+		this.y = pos.y*tileHeight + ( tileHeight / 2);
 		
 		this.width = this.towerType.widthImg
 		this.height = this.towerType.heightImg
@@ -180,35 +180,43 @@ Tower.prototype = {
 		var imagem = loader.findImage( "tower"+this.towerType.type );
 		var imagemBase = loader.findImage( "towerBase"+this.towerType.type );
 		
-		var xO = imagem.img.width / 2;
-		var yO = imagem.img.height /2;
+		var towerW = this.towerType.widthImg;
+		var towerH = this.towerType.heightImg;
+		var pivotY = this.towerType.pivotY || 0.65;
+		var xO = towerW / 2;
+		var yO = towerH * pivotY;
+		
+		var baseSize = 58;
+		var baseX = this.x - (baseSize / 2);
+		var baseY = this.y - (baseSize / 2);
 		
 		canvasW = canvas.getCanvas();
 		context = canvasW.getContext("2d");
 			
 		context.save();
-		context.drawImage( imagemBase.img, this.x-(imagemBase.img.width/3) , this.y-(imagemBase.img.height/2) , ( imagemBase.img.width ), (  imagemBase.img.height ) );
-		context.translate( this.x+this.towerType.widthAjuste , this.y+this.towerType.heightAjuste );
+		context.drawImage( imagemBase.img, 0, 0, imagemBase.img.width, imagemBase.img.height, baseX, baseY, baseSize, baseSize );
+		context.translate( this.x, this.y );
 		
 		this.drawUpgradeImg(context);		
 //		this.drawLife( context )
 		this.drawRange(context);
-		context.rotate( mathI.convertToRadians( this.r-180 ));
-		context.drawImage( imagem.img, -xO, -yO, ( imagem.img.width ), ( imagem.img.height ) );
+		context.rotate( mathI.convertToRadians( this.r ));
+		context.drawImage( imagem.img, 0, 0, imagem.img.width, imagem.img.height, -xO, -yO, towerW, towerH );
 		
 		context.restore();
 	},
 	
 	radgradAnima: 0,
-	radgradAnimaEa: .0001,
+	radgradAnimaEa: 0.0001,
 	
 	drawRange:function(context){
 		if( this.focus ){
-			this.radgradAnima += this.radgradAnimaEa;
-			this.radgradAnimaEa += .0009;
+			var dt = typeof deltaTime !== 'undefined' ? deltaTime : 1;
+			this.radgradAnima += this.radgradAnimaEa * dt;
+			this.radgradAnimaEa += 0.00015 * dt;
 			if( this.radgradAnima >= 0.9){
 				this.radgradAnima = 0;
-				this.radgradAnimaEa = .0001
+				this.radgradAnimaEa = 0.01;
 			}
 			
 			var imagem = loader.findImage( "tower"+this.towerType.type );
@@ -234,7 +242,11 @@ Tower.prototype = {
 			context.closePath();
 			context.fill();
 			
-			
+			context.beginPath();
+			context.arc( (-xO+imagem.img.width/2), (-yO+imagem.img.height/2), this.range, 0, Math.PI*2, true); 
+			context.strokeStyle = 'rgba(0, 180, 0, 0.6)';
+			context.lineWidth = 2;
+			context.stroke();
 			
 		}
 	},
@@ -315,10 +327,9 @@ Tower.prototype = {
 		var imagem = loader.findImage( "tower"+this.towerType.type );
 		
 		var dif = -11;
-		//var anguloAttack2 = mathI.convertToDegrees( mathI.anguloVector( ( inimigo.x-(this.x-25)) ,  ( inimigo.y-(this.y-25) ) ) );
-		var anguloAttack = mathI.angulo(inimigo, this  ) + 25 ;
+		var anguloAttack = mathI.angulo(inimigo, this);
 
-		this.r = anguloAttack;
+		this.r = anguloAttack - 90;
 		var atual = new Date().getTime();
 		if( (atual-this.lastAttack) > ( (1-this.attackSpeed)*1000) || this.lastAttack == 0){
 			

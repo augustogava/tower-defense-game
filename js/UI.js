@@ -83,46 +83,42 @@ UI.prototype = {
 			var life = loader.findImage( "life");
 			var coins = loader.findImage( "coins" );
 			
-			context.font = 'italic bold 23px sans-serif';
+			context.font = 'italic bold 18px sans-serif';
 			
-			 context.fillStyle = "rgba(46, 58, 74, 0.75)";
+			 context.fillStyle = "rgba(46, 58, 74, 0.8)";
 			 context.beginPath();
 			 context.moveTo(0, 0);
-			 context.lineTo(170, 0);
-			 context.lineTo(210, 50);
-			 context.lineTo(0, 50);
+			 context.lineTo(150, 0);
+			 context.lineTo(180, 32);
+			 context.lineTo(0, 32);
 			 context.fill();
 			 context.closePath();
 
 			 context.beginPath();
-			 context.moveTo(240, 0);
-			 context.lineTo(760, 0);
-			 context.lineTo(720, 50);
-			 context.lineTo(280, 50);
+			 context.moveTo(200, 0);
+			 context.lineTo(800, 0);
+			 context.lineTo(770, 32);
+			 context.lineTo(230, 32);
 			 context.fill();
 			 context.closePath();
 			 
 			 context.beginPath();
-			 context.moveTo(830, 0);
+			 context.moveTo(850, 0);
 			 context.lineTo(1020, 0);
-			 context.lineTo(1020, 50);
-			 context.lineTo(790, 50);
+			 context.lineTo(1020, 32);
+			 context.lineTo(820, 32);
 			 context.fill();
 			 context.closePath();
 			 
 			 context.fillStyle = '#FFF';
-			 context.fillText( "WAVE: " + level.level, 20, 32);
-			 context.fillText( player.coins, 350, 32);
-			 context.fillText( "SCORE: " + player.points, 540, 32);
-			 context.fillText( player.life + " / " + level.lifeTotal , 900, 30);
+			 context.fillText( "WAVE: " + level.level, 15, 22);
+			 context.fillText( player.coins, 320, 22);
+			 context.fillText( "SCORE: " + player.points, 500, 22);
+			 context.fillText( player.life + " / " + level.lifeTotal , 920, 22);
 			 
-			 context.drawImage( life.img, 840 , 2 , ( life.img.width ), (  life.img.height ) );
-			 context.drawImage( coins.img, 290 , 15 , ( coins.img.width ), (  coins.img.height ) );
+			 context.drawImage( life.img, 865 , 4 , life.img.width * 0.8, life.img.height * 0.8 );
+			 context.drawImage( coins.img, 270 , 8 , coins.img.width * 0.8, coins.img.height * 0.8 );
 		}
-		
-		context.font = 'bold 14px monospace';
-		context.fillStyle = fps >= 50 ? '#00FF00' : fps >= 30 ? '#FFFF00' : '#FF0000';
-		context.fillText('FPS: ' + fps, 10, 790);
 
 	},
 	
