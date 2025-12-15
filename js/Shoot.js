@@ -50,8 +50,8 @@ Shoot.prototype = {
 		}
 	},
 	update: function(){
-		this.x += this.vx;
-		this.y += this.vy;
+		this.x += this.vx * deltaTime;
+		this.y += this.vy * deltaTime;
 
 		if( ( this.x > $("#myCanvas").width() || this.y > $("#myCanvas").height() ) || ( this.x < 0 || this.y < 0 ) ){
 			console.info("REMOVE TIRO SAIU tela")	

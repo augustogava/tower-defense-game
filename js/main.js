@@ -363,14 +363,33 @@ Game.prototype.calculateFrame = function() {
 
 window.onload = function(){
 
-	ajusteLayout();
 	game = new Game();
 	
+	canvas.resizeCanvas();
+	ResponsiveConfig.checkOrientation();
+	
+	window.addEventListener('resize', function() {
+		canvas.resizeCanvas();
+		ResponsiveConfig.checkOrientation();
+	});
+	
+	window.addEventListener('orientationchange', function() {
+		setTimeout(function() {
+			canvas.resizeCanvas();
+			ResponsiveConfig.checkOrientation();
+		}, 100);
+	});
+	
 	document.getElementById("effects").addEventListener('mousemove', function(evt) {
-		var mousePos = getMousePos(document.getElementById("myCanvas"), evt);
-		mouseXpos = mousePos.x;
-		mouseYpos = mousePos.y;
+		var coords = canvas.getScaledCoordinates(evt.clientX, evt.clientY);
+		mouseXpos = coords.x;
+		mouseYpos = coords.y;
 	}, false);
+	
+	input.addTouchSupport(canvas);
+	
+	console.log('Game initialized - Responsive mode active');
+	console.log('Device:', ResponsiveConfig.getDeviceType());
 	
  }
  
