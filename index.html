@@ -140,18 +140,37 @@
 				
 			}
 			
-			.textT{
-				position: absolute;
-				
-				text-align: center;
-				font-family: Arial,Helvetica,sans-serif;
-				font-size: 40px;
-				color: red;
-				margin-top: 10%;
-				margin-left: 41%;
-				font-weight: bold;
-				z-index: 999;
-			}
+		.textT{
+			position: absolute;
+			
+			text-align: center;
+			font-family: Arial,Helvetica,sans-serif;
+			font-size: 40px;
+			color: red;
+			margin-top: 10%;
+			margin-left: 41%;
+			font-weight: bold;
+			z-index: 999;
+		}
+		
+		.clickToBegin{
+			position: absolute;
+			text-align: center;
+			font-family: Arial,Helvetica,sans-serif;
+			font-size: 28px;
+			color: #FFD700;
+			margin-top: 75%;
+			width: 100%;
+			font-weight: bold;
+			z-index: 999;
+			animation: blink 1.5s infinite;
+			text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+		}
+		
+		@keyframes blink {
+			0%, 100% { opacity: 1; }
+			50% { opacity: 0.3; }
+		}
 			
 			#tank {
 				position: absolute;
@@ -436,17 +455,18 @@
 			<img src="images/loading_p.png" class="loadingP" />
 		</div>
 		
-		<div id="intro">
-			<div id="logo">
-				<img src="images/logo.png" />
-			</div>
-			<div id="tank">
-				<img src="images/intro_tank.png" id="tankImg" />
-			</div>
-			<div id="anima">
-				<img src="images/intro_3.png" />
-			</div>
+	<div id="intro">
+		<div id="logo">
+			<img src="images/logo.png" />
 		</div>
+		<div id="tank">
+			<img src="images/intro_tank.png" id="tankImg" />
+		</div>
+		<div id="anima">
+			<img src="images/intro_3.png" />
+		</div>
+		<div class="clickToBegin">CLICK TO BEGIN</div>
+	</div>
 		
 
 		<div id="endgame">
