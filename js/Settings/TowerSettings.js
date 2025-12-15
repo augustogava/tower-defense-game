@@ -108,16 +108,16 @@ var ShootType = [
 var TowerUpgrade = [
 	    {
 	    	id:0,
-	    	stepAttack: 0.12,
-	    	stepDefense: 0.1,
-			stepHP: 0.1,
-			stepRange: 20,
-			stepAttackSpeed: .01,
-	        stepSlow: 0.05,
+	    	stepAttack: 0.15,
+	    	stepDefense: 0.05,
+			stepHP: 0.5,
+			stepRange: 15,
+			stepAttackSpeed: 0.03,
+	        stepSlow: 0,
 			maxUpgrade: 5,
 			texture: "images/upgrade.png",
-			cost: .4,
-			sell: .7,
+			cost: 0.35,
+			sell: 0.6,
 			
 			widthImg: 25,
 			heightImg: 50,
@@ -146,15 +146,15 @@ var TowerUpgrade = [
 		{
 	    	id:1,
 	    	stepAttack: 0,
-	    	stepDefense: 0.1,
-			stepHP: 0.1,
-			stepRange: 2,
+	    	stepDefense: 0.05,
+			stepHP: 0.5,
+			stepRange: 5,
 			stepAttackSpeed: 0,
-			stepSlow: 0.1,
+			stepSlow: 0.015,
 			maxUpgrade: 5,
 			texture: "images/upgrade.png",
-			cost: .4,
-			sell: .7,
+			cost: 0.3,
+			sell: 0.6,
 			
 			widthImg: 25,
 			heightImg: 50,
@@ -184,15 +184,15 @@ var TowerUpgrade = [
 		{
 	    	id:2,
 	    	stepAttack: 0,
-	    	stepDefense: 0.1,
-			stepHP: 0.1,
-			stepRange: 2,
+	    	stepDefense: 0.05,
+			stepHP: 0.5,
+			stepRange: 5,
 			stepAttackSpeed: 0,
-			stepSlow: 0.07,
+			stepSlow: 0.012,
 			maxUpgrade: 5,
 			texture: "images/upgrade.png",
-			cost: .4,
-			sell: .7,
+			cost: 0.3,
+			sell: 0.6,
 			
 			widthImg: 25,
 			heightImg: 50,
@@ -228,21 +228,20 @@ var TowerType = [
 	        textureName:"images/torre_1.png",
 			textureBaseName:"images/base_torre_1.png",
 			textureSell:"images/sell.png",
-	        scoreValue:15,
-	        coinCost:60,
+	        scoreValue: 10,
+	        coinCost: 50,
 			
 			sound: "cocking",
 			
-			widthImg: 33,
-			heightImg: 50,
-	        widthAjuste: 8,
-			heightAjuste: 0,
+			widthImg: 50,
+			heightImg: 75,
+	        pivotY: 0.75,
 			
-	        HP:5,
-	        attack:.2,
-	        attackSpeed:.8,
-	        defense:1,
-	        range:80,
+	        HP: 5,
+	        attack: 0.4,
+	        attackSpeed: 0.75,
+	        defense: 1,
+	        range: 90,
 	        slow: 0
 	    },
 		{
@@ -252,22 +251,20 @@ var TowerType = [
 	        textureName:"images/torre_2.png",
 			textureBaseName:"images/base_torre_2.png",
 			textureSell:"images/sell.png",
-	        scoreValue:15,
-	        coinCost:100,
+	        scoreValue: 15,
+	        coinCost: 85,
 
 			sound: "cocking",
 			
-			widthImg: 49,
-			heightImg: 50,
+			widthImg: 70,
+			heightImg: 72,
+			pivotY: 0.60,
 			
-			widthAjuste: 8,
-			heightAjuste: -2,
-			
-	        HP:5,
-	        attack:1.5,
-	        attackSpeed:.2,
-	        defense:1,
-	        range:110,
+	        HP: 5,
+	        attack: 1.2,
+	        attackSpeed: 0.3,
+	        defense: 1,
+	        range: 100,
 	        slow: 0
 	    },
 		{
@@ -277,22 +274,20 @@ var TowerType = [
 	        textureName:"images/torre_3.png",
 			textureBaseName:"images/base_torre_2.png",
 			textureSell:"images/sell.png",
-	        scoreValue:15,
-	        coinCost:110,
+	        scoreValue: 15,
+	        coinCost: 90,
 			
 			sound: "cocking",
 			
-			widthImg: 44,
-			heightImg: 64,
+			widthImg: 55,
+			heightImg: 95,
+			pivotY: 0.70,
 			
-			widthAjuste: 10,
-			heightAjuste: 0,
-			
-	        HP:5,
-	        attack:.28,
-	        attackSpeed:.83	,
-	        defense:1,
-	        range:80,
+	        HP: 5,
+	        attack: 0.35,
+	        attackSpeed: 0.8,
+	        defense: 1,
+	        range: 85,
 	        slow: 0
 	    },{
 	        type:3,
@@ -301,23 +296,22 @@ var TowerType = [
 	        textureName:"images/torre_3.png",
 			textureBaseName:"images/base_torre_2.png",
 			textureSell:"images/sell.png",
-	        scoreValue:15,
-	        coinCost:80,
+	        scoreValue: 10,
+	        coinCost: 70,
 			
 			sound: "cocking",
 			
-			widthImg: 44,
-			heightImg: 64,
-			
-			widthAjuste: 10,
+			widthImg: 55,
+			heightImg: 95,
+			pivotY: 0.70,
 			heightAjuste: 0,
 			
-	        HP:5,
-	        attack:0,
-	        attackSpeed:.86	,
-	        defense:1,
-	        range:90,
-	        slow: 0.018
+	        HP: 5,
+	        attack: 0.1,
+	        attackSpeed: 0.82,
+	        defense: 1,
+	        range: 95,
+	        slow: 0.025
 	    }
     ];
 

@@ -39,7 +39,8 @@
 		}
 	#ui{
 		position: absolute;
-		background: #1A1A1A url('images/ui.png');
+		background: #1A1A1A url('images/ui.png') no-repeat;
+		background-size: 100% 100%;
 		width: 1020px;
 		height: 200px;
 		top: 0;
@@ -604,6 +605,10 @@
 				<div id="credits">
 					Credits
 				</div>
+				
+				<div id="debugBtn" onclick="debugVisible ? hideDebugPanel() : showDebugPanel()" style="cursor: pointer; padding: 5px 10px; background: #333; color: #0f0; font-size: 10px; margin-left: 10px; border: 1px solid #0f0;">
+					DBG
+				</div>
 			</div>
 		</div>
 
@@ -663,6 +668,137 @@
 				</table>
 			</div>
 		</div>
+
+		<div id="debugPanel" style="display: none;">
+			<div id="debugToggle" onclick="toggleDebug()">DEBUG</div>
+			<div id="debugContent">
+				<div class="debug-row"><span>FPS:</span><span id="dbg-fps">0</span></div>
+				<div class="debug-row"><span>Delta:</span><span id="dbg-delta">0</span></div>
+				<div class="debug-row"><span>Entities:</span><span id="dbg-entities">0</span></div>
+				<div class="debug-row"><span>Enemies:</span><span id="dbg-enemies">0</span></div>
+				<div class="debug-row"><span>Towers:</span><span id="dbg-towers">0</span></div>
+				<div class="debug-row"><span>Shoots:</span><span id="dbg-shoots">0</span></div>
+				<div class="debug-row"><span>Effects:</span><span id="dbg-effects">0</span></div>
+				<div class="debug-row"><span>Wave:</span><span id="dbg-wave">0</span></div>
+				<div class="debug-row"><span>Queue:</span><span id="dbg-queue">0</span></div>
+				<div class="debug-row"><span>Memory:</span><span id="dbg-memory">N/A</span></div>
+			</div>
+		</div>
+
+		<style>
+			#debugPanel {
+				position: fixed;
+				top: 10px;
+				left: 10px;
+				z-index: 9999999;
+				font-family: 'Courier New', monospace;
+				font-size: 12px;
+			}
+			#debugToggle {
+				background: rgba(0, 0, 0, 0.8);
+				color: #0f0;
+				padding: 5px 10px;
+				cursor: pointer;
+				border: 1px solid #0f0;
+				display: inline-block;
+				user-select: none;
+			}
+			#debugToggle:hover {
+				background: rgba(0, 50, 0, 0.9);
+			}
+			#debugContent {
+				background: rgba(0, 0, 0, 0.85);
+				border: 1px solid #0f0;
+				padding: 8px;
+				margin-top: 2px;
+				min-width: 150px;
+				display: none;
+			}
+			#debugContent.show {
+				display: block;
+			}
+			.debug-row {
+				display: flex;
+				justify-content: space-between;
+				color: #0f0;
+				padding: 2px 0;
+				border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+			}
+			.debug-row:last-child {
+				border-bottom: none;
+			}
+			.debug-row span:first-child {
+				color: #8f8;
+			}
+			.debug-row span:last-child {
+				color: #ff0;
+				font-weight: bold;
+			}
+		</style>
+
+		<script type="text/javascript">
+			var debugVisible = false;
+			var debugExpanded = false;
+			
+			function toggleDebug() {
+				debugExpanded = !debugExpanded;
+				var content = document.getElementById('debugContent');
+				if (debugExpanded) {
+					content.classList.add('show');
+				} else {
+					content.classList.remove('show');
+				}
+			}
+			
+			function showDebugPanel() {
+				document.getElementById('debugPanel').style.display = 'block';
+				debugVisible = true;
+			}
+			
+			function hideDebugPanel() {
+				document.getElementById('debugPanel').style.display = 'none';
+				debugVisible = false;
+			}
+			
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'F3' || (e.ctrlKey && e.shiftKey && e.key === 'D')) {
+					e.preventDefault();
+					if (debugVisible) {
+						hideDebugPanel();
+					} else {
+						showDebugPanel();
+					}
+				}
+			});
+			
+			function updateDebugInfo() {
+				if (!debugVisible || !debugExpanded) return;
+				
+				document.getElementById('dbg-fps').textContent = typeof fps !== 'undefined' ? fps : 0;
+				document.getElementById('dbg-delta').textContent = typeof deltaTime !== 'undefined' ? deltaTime.toFixed(2) : 0;
+				
+				if (typeof enti !== 'undefined') {
+					var objs = enti.getObjetos();
+					document.getElementById('dbg-entities').textContent = objs.length;
+					document.getElementById('dbg-enemies').textContent = enti.getObjetosByType('enemy').length;
+					document.getElementById('dbg-towers').textContent = enti.getObjetosByType('tower').length;
+					document.getElementById('dbg-shoots').textContent = enti.getObjetosByType('tiro').length;
+					document.getElementById('dbg-effects').textContent = enti.getObjetosByType('efx').length;
+				}
+				
+				if (typeof level !== 'undefined') {
+					document.getElementById('dbg-wave').textContent = level.level;
+					document.getElementById('dbg-queue').textContent = level.spawnQueue ? level.spawnQueue.length : 0;
+				}
+				
+				if (performance.memory) {
+					var mb = (performance.memory.usedJSHeapSize / 1048576).toFixed(1);
+					document.getElementById('dbg-memory').textContent = mb + ' MB';
+				}
+			}
+			
+			setInterval(updateDebugInfo, 100);
+		</script>
 
 		<script type="text/javascript"><!--
 		google_ad_client = "ca-pub-8079041656027483";

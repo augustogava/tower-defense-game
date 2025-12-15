@@ -327,6 +327,7 @@ Game.prototype.process = function() {
 Game.prototype.render = function() {
 	var canv = canvas.getCanvas();
 	var context = canvas.getCanvas().getContext("2d");
+	
 	context.clearRect( 0, 0, $("#myCanvas").width(), $("#myCanvas").height());
 		
 	var canvasEffects = document.getElementById( "effects" );
@@ -348,7 +349,7 @@ Game.prototype.drawBG = function( canvas ) {
 	var img = loader.findImage( "bg" );
 	var context = canvas.getContext("2d");
 	
-	context.drawImage( img.img, 0, 0);	
+	context.drawImage( img.img, 0, 0, 1020, 600);	
 }
 
 Game.prototype.calculateFrame = function() {
