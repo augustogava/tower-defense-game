@@ -1,0 +1,18 @@
+# Backup images
+images_BKP/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+images/new
+images_BKP/**
